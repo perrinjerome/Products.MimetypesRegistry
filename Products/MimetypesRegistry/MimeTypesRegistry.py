@@ -303,6 +303,8 @@ class MimeTypesRegistry(UniqueObject, ActionProviderBase, Folder):
             if mt is None:
                 mt = self.globFilename(filename)
         if data and not mt:
+            if isinstance(data, str):
+                data = data.encode()
             for c in self._classifiers():
                 if c.classify(data):
                     mt = c

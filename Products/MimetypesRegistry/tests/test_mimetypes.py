@@ -58,6 +58,10 @@ class TestMimeTypesclass(unittest.TestCase):
         mt = reg.classify("<?xml ?>")
         self.assertTrue(isinstance(mt, text_xml), str(mt))
 
+        # test magic classifiers
+        mt = reg.classify("BEGIN:VCARD\n")
+        self.assertEqual(str(mt), 'text/vcard')
+
         # test no data return default
         mt = reg.classify("")
         self.assertTrue(isinstance(mt, text_plain), str(mt))
