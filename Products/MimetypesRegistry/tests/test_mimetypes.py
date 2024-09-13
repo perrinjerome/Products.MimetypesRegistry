@@ -73,6 +73,12 @@ class TestMimeTypesclass(unittest.TestCase):
         mt = reg.classify("baz", filename="xxx")
         self.assertTrue(isinstance(mt, application_octet_stream), str(mt))
 
+        # test binary data
+        mt = reg.classify(b"\x01")
+        self.assertTrue(isinstance(mt, application_octet_stream), str(mt))
+        mt = reg.classify(b"\x89PNG123")
+        self.assertEqual(str(mt), 'image/png')
+
     def testExtension(self):
         reg = self.registry
         data = "<foo>bar</foo>"

@@ -322,7 +322,8 @@ class MimeTypesRegistry(UniqueObject, ActionProviderBase, Folder):
                 failed = "text/x-unknown-content-type"
                 filename = filename or ""
                 data = data or ""
-                data = data.encode()
+                if isinstance(data, str):
+                    data = data.encode()
                 ct, enc = guess_content_type(filename, data, None)
                 if ct == failed:
                     ct = "text/plain"
